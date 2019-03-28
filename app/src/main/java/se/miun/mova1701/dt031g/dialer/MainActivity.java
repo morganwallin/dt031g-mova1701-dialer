@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+//MainActivity Class
 public class MainActivity extends AppCompatActivity {
     protected boolean dialogShowing = false;
 
