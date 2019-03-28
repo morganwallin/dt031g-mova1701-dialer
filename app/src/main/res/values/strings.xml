@@ -8,6 +8,8 @@
     <string name="aboutButton">ABOUT</string>
     <string name="title_activity_settings">Settings</string>
     <string name="dialInformation">This is the activity for dialing</string>
+    <string name="callListInformation">This is the activity for Call List</string>
+
 
 
     <!-- Strings related to Settings -->
