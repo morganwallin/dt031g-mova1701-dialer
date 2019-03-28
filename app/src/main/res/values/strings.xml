@@ -11,7 +11,6 @@
     <string name="callListInformation">This is the activity for Call List</string>
 
 
-
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -83,4 +82,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
