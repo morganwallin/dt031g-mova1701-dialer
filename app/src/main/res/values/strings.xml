@@ -15,6 +15,7 @@
                                     - See previously dialed numbers\n
                                     - Change the keypad settings\n
                                     - Show on a map where previous calls are dialed from</string>
+    <string name="OK">OK</string>
 
 
     <!-- Strings related to Settings -->

@@ -8,13 +8,45 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.app.AlertDialog.*;
 
 public class MainActivity extends AppCompatActivity {
+    protected boolean dialogShowing = false;
+
+    //Create 'About'-dialog window
+    protected void createAboutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        //Set messages to what is specified in strings.xml
+        builder.setMessage(R.string.dialog_message) .setTitle(R.string.dialog_title);
+        //Block back-button
+        builder.setCancelable(false)
+                //Add OK-button for the user to be able to close the dialog
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialogShowing = false;
+                    }
+                });
+        //Create alert and show it
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //Save dialogShowing boolean on orientation change to know if we should recreate it
+    //when the phone changes orientation
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean("dialogShowing", dialogShowing);
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Check if it's a new instance or a saved one
+        if(savedInstanceState != null) {
+            //Retrieve the boolean dialogShowing to know if we should recreate the dialog
+            dialogShowing = savedInstanceState.getBoolean("dialogShowing");
+        } else {dialogShowing = false;}
         setContentView(R.layout.activity_main);
 
         Button dialButton = (Button) findViewById(R.id.dialButton);
@@ -45,22 +77,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Checks if we should create the dialog or not
+        if(dialogShowing) {
+            createAboutDialog();
+        }
+
         Button aboutButton = (Button) findViewById(R.id.aboutButton);
         aboutButton.setOnClickListener(new OnClickListener(){
             public void onClick(View v){
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage(R.string.dialog_message) .setTitle(R.string.dialog_title);
-                builder.setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
+                dialogShowing = true;
+                createAboutDialog();
             }
         });
-
-
     }
 }
