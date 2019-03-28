@@ -9,6 +9,12 @@
     <string name="title_activity_settings">Settings</string>
     <string name="dialInformation">This is the activity for dialing</string>
     <string name="callListInformation">This is the activity for Call List</string>
+    <string name="dialog_title">About</string>
+    <string name="dialog_message">This app is supposed to mimic the keypad on a phone. The app will consist of activities to: \n\n
+                                    - Enter numbers to dial\n
+                                    - See previously dialed numbers\n
+                                    - Change the keypad settings\n
+                                    - Show on a map where previous calls are dialed from</string>
 
 
     <!-- Strings related to Settings -->
