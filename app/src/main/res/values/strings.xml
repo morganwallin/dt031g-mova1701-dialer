@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Dialer</string>
     <string name="header">What would you like to do?</string>
     <string name="dialButton">DIAL</string>
     <string name="callListButton">CALL LIST</string>
@@ -16,6 +16,8 @@
                                     - Change the keypad settings\n
                                     - Show on a map where previous calls are dialed from</string>
     <string name="OK">OK</string>
+    <string name="dialpadTitle">1</string>
+    <string name="dialpadMessage">msg</string>
 
 
     <!-- Strings related to Settings -->
