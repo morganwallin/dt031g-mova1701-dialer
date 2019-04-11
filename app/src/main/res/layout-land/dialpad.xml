@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:dialer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*"
+    tools:context=".DialActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message=""
+                dialer:title="1" >
+
+            </se.miun.mova1701.dt031g.dialer.DialpadButton>
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="ABC"
+                dialer:title="2">
+
+            </se.miun.mova1701.dt031g.dialer.DialpadButton>
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="DEF"
+                dialer:title="3">
+
+            </se.miun.mova1701.dt031g.dialer.DialpadButton>
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message=""
+                dialer:title="*" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="GHI"
+                dialer:title="4" />
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="JKL"
+                dialer:title="5" />
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="MNO"
+                dialer:title="6" />
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="+"
+                dialer:title="0" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="PQRS"
+                dialer:title="7" />
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="TUV"
+                dialer:title="8"
+                 />
+
+            <se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message="WXYZ"
+                dialer:title="9" />
+
+<se.miun.mova1701.dt031g.dialer.DialpadButton
+                android:id="@+id/dialpad_button_11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                dialer:message=""
+                dialer:title="#" />
+        </TableRow>
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>
