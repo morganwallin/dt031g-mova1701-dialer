@@ -10,7 +10,7 @@ class SoundPlayer
     // static variable instance of type SoundPlayer
     private static SoundPlayer instance = null;
     private SoundPool soundPool;
-    boolean soundLoaded = false;
+    private boolean soundLoaded = false;
     private int sounds[] = new int[12];
     // private constructor restricted to this class itself
     private SoundPlayer(Context context)
@@ -36,25 +36,29 @@ class SoundPlayer
 
 
 
-    private void loadSound(Context context){
-        sounds[0] = soundPool.load(context, R.raw.zero, 1);
-        sounds[1] = soundPool.load(context, R.raw.one, 1);
-        sounds[2] = soundPool.load(context, R.raw.two, 1);
-        sounds[3] = soundPool.load(context, R.raw.three, 1);
-        sounds[4] = soundPool.load(context, R.raw.four, 1);
-        sounds[5] = soundPool.load(context, R.raw.five, 1);
-        sounds[6] = soundPool.load(context, R.raw.six, 1);
-        sounds[7] = soundPool.load(context, R.raw.seven, 1);
-        sounds[8] = soundPool.load(context, R.raw.eight, 1);
-        sounds[9] = soundPool.load(context, R.raw.nine, 1);
-        sounds[10] = soundPool.load(context, R.raw.star, 1);
-        sounds[11] = soundPool.load(context, R.raw.pound, 1);
+    public void loadSound(Context context){
+        if(!soundLoaded) {
+            String externalStorageDirectory = android.os.Environment.getExternalStorageDirectory().getPath() + "/Dialer/Voices/";
+            String directory = "mamacita_us/";
+            sounds[0] = soundPool.load(externalStorageDirectory + directory + "zero.mp3", 1);
+            sounds[1] = soundPool.load(externalStorageDirectory + directory + "one.mp3", 1);
+            sounds[2] = soundPool.load(externalStorageDirectory + directory + "two.mp3", 1);
+            sounds[3] = soundPool.load(externalStorageDirectory + directory + "three.mp3", 1);
+            sounds[4] = soundPool.load(externalStorageDirectory + directory + "four.mp3", 1);
+            sounds[5] = soundPool.load(externalStorageDirectory + directory + "five.mp3", 1);
+            sounds[6] = soundPool.load(externalStorageDirectory + directory + "six.mp3", 1);
+            sounds[7] = soundPool.load(externalStorageDirectory + directory + "seven.mp3", 1);
+            sounds[8] = soundPool.load(externalStorageDirectory + directory + "eight.mp3", 1);
+            sounds[9] = soundPool.load(externalStorageDirectory + directory + "nine.mp3", 1);
+            sounds[10] = soundPool.load(externalStorageDirectory + directory + "star.mp3", 1);
+            sounds[11] = soundPool.load(externalStorageDirectory + directory + "pound.mp3", 1);
+        }
     }
 
 
     public void playSound(DialpadButton dpButton) {
         while(true) {
-            if (isSoundLoaded()) {
+            if (soundLoaded) {
                 switch(dpButton.getTitle()) {
                     case "0": soundPool.play(sounds[0], 1.0F, 1.0F, 0, 0, 1.0F); break;
                     case "1": soundPool.play(sounds[1], 1.0F, 1.0F, 0, 0, 1.0F); break;

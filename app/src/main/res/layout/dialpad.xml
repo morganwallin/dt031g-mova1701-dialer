@@ -6,11 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="*"
-    tools:context=".DialpadActivity">
+    tools:context=".Dialpad">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <TextView
+        android:inputType="phone"
+        android:id="@+id/phoneNumberEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="@string/phoneNumberPlaceholder"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:longClickable="true"
+        android:text="@string/eraseButtonText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/callButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="36dp"
+        android:text="@string/dialButtonText"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteButton" />
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline">
 
         <TableRow
             android:layout_width="match_parent"
@@ -23,7 +70,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 dialer:message=""
-                dialer:title="1" >
+                dialer:title="1">
 
             </se.miun.mova1701.dt031g.dialer.DialpadButton>
 
@@ -99,8 +146,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 dialer:message="TUV"
-                dialer:title="8"
-                 />
+                dialer:title="8" />
 
             <se.miun.mova1701.dt031g.dialer.DialpadButton
                 android:id="@+id/dialpad_button_9"
@@ -141,5 +187,8 @@
                 dialer:title="#" />
         </TableRow>
     </TableLayout>
+
+
+
 
 </android.support.constraint.ConstraintLayout>

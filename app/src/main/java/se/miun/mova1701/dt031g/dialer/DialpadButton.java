@@ -31,22 +31,22 @@ public class DialpadButton extends ConstraintLayout implements View.OnTouchListe
         init(context, attrs, 0);
 
     }
+
     public DialpadButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
     }
 
-    private void init(Context context, AttributeSet attrs, int defStyle)
-    {
+    private void init(Context context, AttributeSet attrs, int defStyle) {
         this.setOnTouchListener(this);
 
         //Inflate XML
-        inflate(context, R.layout.dialpadbutton, this);
+        inflate(getContext(), R.layout.dialpadbutton, this);
 
-        title = (TextView)findViewById(R.id.dialpadTitle);
-        message = (TextView)findViewById(R.id.dialpadMessage);
+        title = (TextView) findViewById(R.id.dialpadTitle);
+        message = (TextView) findViewById(R.id.dialpadMessage);
 
-        if(attrs != null) {
+        if (attrs != null) {
             TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DialpadButton);
 
             String messageString = ta.getString(R.styleable.DialpadButton_message);
@@ -78,47 +78,57 @@ public class DialpadButton extends ConstraintLayout implements View.OnTouchListe
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            boolean useSound = DialActivity.getUseSound();
             this.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.animation));
-            SoundPlayer.getInstance(getContext()).playSound(this);
+            if (useSound && SoundPlayer.getInstance(getContext()).isSoundLoaded()) {
+                SoundPlayer.getInstance(getContext()).playSound(this);
+            }
+
+            View parent = (View)v.getRootView();
+            if (parent != null) {
+                TextView textView = parent.findViewById(R.id.phoneNumberEditText);
+                textView.append(this.getTitle());
+            }
+
         }
-        invalidate();
         return true;
     }
 
-    public void setTitle(String titleString) {
-        if(titleString.length() != 1) {
-            //Get first char of the string
-            titleString = titleString.substring(0, 1);
+        public void setTitle (String titleString){
+            if (titleString.length() != 1) {
+                //Get first char of the string
+                titleString = titleString.substring(0, 1);
 
-            //Create objects to compare the titleString with
-            List<String> acceptableStrings = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "#", "*");
-            ArrayList<String> stringList = new ArrayList<>();
+                //Create objects to compare the titleString with
+                List<String> acceptableStrings = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "#", "*");
+                ArrayList<String> stringList = new ArrayList<>();
 
-            //Add them to an ArrayList
-            stringList.addAll(acceptableStrings);
+                //Add them to an ArrayList
+                stringList.addAll(acceptableStrings);
 
-            //Check if titleString is 1-9, * or #, if not it defaults to #
-            for(Object it : stringList) {
-                if(!titleString.equals(it)) {
-                    titleString="#";
+                //Check if titleString is 1-9, * or #, if not it defaults to #
+                for (Object it : stringList) {
+                    if (!titleString.equals(it)) {
+                        titleString = "#";
+                    }
                 }
             }
+            title.setText(titleString);
+            invalidate();
+            requestLayout();
         }
-        title.setText(titleString);
-        invalidate();
-        requestLayout();
-    }
-    public void setMessage(String messageString) {
-        if(messageString.length() > 4) {
-            messageString = messageString.substring(0, 4);
+        public void setMessage (String messageString){
+            if (messageString.length() > 4) {
+                messageString = messageString.substring(0, 4);
+            }
+            message.setText(messageString);
+            invalidate();
+            requestLayout();
         }
-        message.setText(messageString);
-        invalidate();
-        requestLayout();
-    }
 
-    public String getTitle() {
-        return title.getText().toString();
-    }
+        public String getTitle () {
+            return title.getText().toString();
+        }
 }
+
