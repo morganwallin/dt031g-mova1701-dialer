@@ -1,12 +1,14 @@
 package se.miun.mova1701.dt031g.dialer;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 
 class SoundPlayer
 {
+
     // static variable instance of type SoundPlayer
     private static SoundPlayer instance = null;
     private SoundPool soundPool;
@@ -29,29 +31,29 @@ class SoundPlayer
                 soundLoaded = true;
             }
         });
-
-        loadSound(context);
-
     }
 
 
 
     public void loadSound(Context context){
         if(!soundLoaded) {
+
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    context.getResources().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             String externalStorageDirectory = android.os.Environment.getExternalStorageDirectory().getPath() + "/Dialer/Voices/";
-            String directory = "mamacita_us/";
-            sounds[0] = soundPool.load(externalStorageDirectory + directory + "zero.mp3", 1);
-            sounds[1] = soundPool.load(externalStorageDirectory + directory + "one.mp3", 1);
-            sounds[2] = soundPool.load(externalStorageDirectory + directory + "two.mp3", 1);
-            sounds[3] = soundPool.load(externalStorageDirectory + directory + "three.mp3", 1);
-            sounds[4] = soundPool.load(externalStorageDirectory + directory + "four.mp3", 1);
-            sounds[5] = soundPool.load(externalStorageDirectory + directory + "five.mp3", 1);
-            sounds[6] = soundPool.load(externalStorageDirectory + directory + "six.mp3", 1);
-            sounds[7] = soundPool.load(externalStorageDirectory + directory + "seven.mp3", 1);
-            sounds[8] = soundPool.load(externalStorageDirectory + directory + "eight.mp3", 1);
-            sounds[9] = soundPool.load(externalStorageDirectory + directory + "nine.mp3", 1);
-            sounds[10] = soundPool.load(externalStorageDirectory + directory + "star.mp3", 1);
-            sounds[11] = soundPool.load(externalStorageDirectory + directory + "pound.mp3", 1);
+            String directory = sharedPref.getString("voiceChoice", externalStorageDirectory + "mamacita_us");
+            sounds[0] = soundPool.load(directory + "/zero.mp3", 1);
+            sounds[1] = soundPool.load(directory + "/one.mp3", 1);
+            sounds[2] = soundPool.load(directory + "/two.mp3", 1);
+            sounds[3] = soundPool.load(directory + "/three.mp3", 1);
+            sounds[4] = soundPool.load(directory + "/four.mp3", 1);
+            sounds[5] = soundPool.load(directory + "/five.mp3", 1);
+            sounds[6] = soundPool.load(directory + "/six.mp3", 1);
+            sounds[7] = soundPool.load(directory + "/seven.mp3", 1);
+            sounds[8] = soundPool.load(directory + "/eight.mp3", 1);
+            sounds[9] = soundPool.load(directory + "/nine.mp3", 1);
+            sounds[10] = soundPool.load(directory + "/star.mp3", 1);
+            sounds[11] = soundPool.load(directory + "/pound.mp3", 1);
         }
     }
 
@@ -75,6 +77,11 @@ class SoundPlayer
                 }
                 break;
             }
+            try {
+                Thread.sleep(50);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,9 +95,9 @@ class SoundPlayer
     // static method to create instance of SoundPlayer class
     public static SoundPlayer getInstance(Context context)
     {
-        if (instance == null)
+        if (instance == null) {
             instance = new SoundPlayer(context);
-
+        }
         return instance;
     }
 

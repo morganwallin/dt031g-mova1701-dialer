@@ -7,6 +7,11 @@
         android:key="saveSwitch"
         android:summary="@string/pref_store_numbers_summary"
         android:title="@string/pref_store_numbers" />
+    <ListPreference
+        android:id="@+id/voiceChoice"
+        android:key="voiceChoice"
+        android:title="Select voice"
+         />
 
 
 </PreferenceScreen>

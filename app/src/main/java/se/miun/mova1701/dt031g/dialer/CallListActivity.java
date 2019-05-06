@@ -20,8 +20,8 @@ public class CallListActivity extends ListActivity {
         String[] listArray = tmpString.split(",");
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<>(this, R.layout.activity_listview, listArray);
-        ListView lv = CallListListView;
-        lv.setAdapter(adapter);
+
+        CallListListView.setAdapter(adapter);
     }
     public static ListView getList() {
         return CallListListView;

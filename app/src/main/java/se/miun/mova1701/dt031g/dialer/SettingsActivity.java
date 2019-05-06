@@ -10,6 +10,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -22,6 +23,8 @@ import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +42,8 @@ import java.util.List;
 public class SettingsActivity extends AppCompatPreferenceActivity {
     private SwitchPreference saveSwitch;
     public static final String KEY_PREF_SAVE_SWITCH = "saveSwitch";
+    public static final String KEY_PREF_VOICES = "voiceChoice";
+
 
     /**
      * A preference value change listener that updates the preference's summary
@@ -182,6 +187,26 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName);
     }
 
+    protected static void setListPreferenceData(ListPreference lp) {
+        CharSequence[] entries = { };
+        CharSequence[] entryValues = { };
+        List<CharSequence> entriesItems = new ArrayList<CharSequence>();
+        List<CharSequence> entryValuesItems = new ArrayList<CharSequence>();
+
+        File dir = new File(Environment.getExternalStorageDirectory().getPath() + "/Dialer/Voices/");
+        File[] files = dir.listFiles();
+        for(File f : files) {
+            if(f.isDirectory()) {
+                entriesItems.add(f.getName());
+                entryValuesItems.add(f.toString());
+            }
+        }
+
+        lp.setEntries(entriesItems.toArray(new CharSequence[entriesItems.size()]));
+        lp.setDefaultValue("1");
+        lp.setEntryValues(entryValuesItems.toArray(new CharSequence[entryValuesItems.size()]));
+    }
+
     /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
@@ -211,7 +236,25 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     return true;
                 }
             });
-
+            ListPreference listPref = (ListPreference) findPreference(KEY_PREF_VOICES);
+            setListPreferenceData(listPref);
+            listPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    listPref.setValue(((String) newValue));
+                    SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                            getResources().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                    sharedPref.edit().putString("voiceChoice", (String) newValue).apply();
+                    return true;
+                }
+            });
+            listPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    setListPreferenceData(listPref);
+                    return false;
+                }
+            });
         }
 
         @Override

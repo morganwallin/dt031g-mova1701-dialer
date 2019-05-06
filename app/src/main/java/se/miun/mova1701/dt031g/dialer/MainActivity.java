@@ -90,5 +90,14 @@ public class MainActivity extends AppCompatActivity {
                 createAboutDialog();
             }
         });
+
+        Button downloadButton = (Button) findViewById(R.id.downloadButton);
+        downloadButton.setOnClickListener(new OnClickListener(){
+            public void onClick(View v){
+                Intent startDownloadActivity = new Intent(getBaseContext(), DownloadActivity.class);
+                startDownloadActivity.putExtra("url", "http://dt031g.programvaruteknik.nu/dialpad/sounds/");
+                startActivity(startDownloadActivity);
+            }
+        });
     }
 }

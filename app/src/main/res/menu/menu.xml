@@ -7,4 +7,19 @@
         app:showAsAction="never"
         android:visible="true"
         />
+
+    <item
+        android:id="@+id/action_bar_download"
+        android:title="Download"
+        app:showAsAction="ifRoom"
+        android:visible="true"
+        android:icon="@mipmap/ic_action_download_dark"
+        />
+    <item
+        android:id="@+id/action_bar_call_list"
+        android:title="Call List"
+        app:showAsAction="ifRoom"
+        android:visible="true"
+        android:icon="@drawable/common_full_open_on_phone"
+        />
 </menu>
