@@ -27,6 +27,8 @@
     <string name="phoneNumberPlaceholder">Phone Number</string>
     <string name="preference_file_key">se.miun.mova1701.dt031g.dialer.PREFERENCE_FILE_KEY</string>
     <string name="noCallPermission">Permission to make a phone call was not granted.</string>
+    <string name="noLocationPermission">Permission to your location was not granted.</string>
+    <string name="noNumbersStored">No numbers stored.</string>
 
 
     <!-- Strings related to Settings -->

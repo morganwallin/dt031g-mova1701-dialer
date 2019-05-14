@@ -1,26 +1,28 @@
 package se.miun.mova1701.dt031g.dialer;
 
 import android.app.ListActivity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class CallListActivity extends ListActivity {
     public static ListView CallListListView;
+    DatabaseHandler dbHandler = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_list);
         CallListListView = (ListView) findViewById(android.R.id.list);
-        SharedPreferences sharedPref = this.getBaseContext().getSharedPreferences(
-                getResources().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String tmpString = sharedPref.getString("listView", "No numbers are stored!");
-        String[] listArray = tmpString.split(",");
-        ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(this, R.layout.activity_listview, listArray);
+        dbHandler = new DatabaseHandler(this);
+        if(dbHandler.numberOfRows() == 0) {
+            CallListListView.setEmptyView(findViewById(R.id.empty));
+        }
+        ArrayList<HashMap<String, String>> callsList = dbHandler.getCalls();
 
+        ArrayAdapter<HashMap<String, String>> adapter = new ArrayAdapter<>(this, R.layout.activity_listview, callsList);
         CallListListView.setAdapter(adapter);
     }
     public static ListView getList() {

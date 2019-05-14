@@ -197,7 +197,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         File[] files = dir.listFiles();
         for(File f : files) {
             if(f.isDirectory()) {
-                entriesItems.add(f.getName());
+                entriesItems.add(f.getName() );
                 entryValuesItems.add(f.toString());
             }
         }

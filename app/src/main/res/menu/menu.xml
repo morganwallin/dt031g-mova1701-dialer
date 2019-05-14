@@ -22,4 +22,11 @@
         android:visible="true"
         android:icon="@drawable/common_full_open_on_phone"
         />
+    <item
+        android:id="@+id/action_bar_map"
+        android:title="Map"
+        app:showAsAction="ifRoom"
+        android:visible="true"
+        android:icon="@mipmap/ic_action_map_light"
+        />
 </menu>

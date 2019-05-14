@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,11 +22,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class DialActivity extends AppCompatActivity {
     Dialpad dp;
     private static final int REQUEST_PHONE_CALL = 1;
+    private static final int REQUEST_FINE_LOCATION = 2;
     static final Integer READ_STORAGE_PERMISSION_REQUEST_CODE=0x3;
     private static boolean useSound = false;
     public static boolean getUseSound() {
@@ -92,6 +98,44 @@ public class DialActivity extends AppCompatActivity {
                 }
             }
         }
+        if(requestCode == REQUEST_FINE_LOCATION) {
+            for (int grantResult : grantResults) {
+                if (grantResult == PackageManager.PERMISSION_DENIED) {
+                    View layout = findViewById(R.id.dialpad);
+                    Snackbar mySnackbar = Snackbar.make(layout, R.string.noLocationPermission, 3000);
+                    mySnackbar.show();
+                } else if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                    DatabaseHandler dbHandler = new DatabaseHandler(this);
+
+                    Date date = Calendar.getInstance().getTime();
+                    String stringDate = date.toString();
+
+
+                    LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+
+                    Location location = null;
+                    double longitude = 0;
+                    double latitude = 0;
+                    String stringLocation;
+                    if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    }
+
+                    if(location!=null){
+                        longitude = location.getLongitude();
+                        latitude = location.getLatitude();
+                        stringLocation = Double.toString(longitude) + ", " + Double.toString(latitude);
+                    }
+                    else {
+                        stringLocation = "?, ?";
+                    }
+                    SharedPreferences sharedPref = this.getSharedPreferences(
+                            getResources().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                    String phoneNumber = sharedPref.getString("phoneNumber", "");
+                    dbHandler.insertCall(phoneNumber, stringDate, stringLocation);
+                }
+            }
+        }
         if(isExternalStorageMounted() && useSound) {
             SoundPlayer.getInstance(this).loadSound(getBaseContext());
         }
@@ -127,6 +171,10 @@ public class DialActivity extends AppCompatActivity {
                 Intent startDownloadActivity = new Intent(this, DownloadActivity.class);
                 startDownloadActivity.putExtra("url", "http://dt031g.programvaruteknik.nu/dialpad/sounds/");
                 startActivity(startDownloadActivity);
+                return true;
+            case R.id.action_bar_map:
+                Intent startMapsActivity = new Intent(this, MapsActivity.class);
+                startActivity(startMapsActivity);
                 return true;
 
         }
